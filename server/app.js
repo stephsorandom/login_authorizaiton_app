@@ -2,9 +2,13 @@ const express = require('express')
 const morgan = require ('morgan')
 const createError = require('http-errors')
 require('dotenv').config()
-const AuthRoute = require)('./Routes/Auth.route')
+const AuthRoute = require('./Routes/Auth.route')
+const MongoRoutes = require('./Routes/MongoRoutes')  
 
 const app = express()
+app.use(morgan('dev'))
+app.use(express.json())
+app.use(express.urlencoded({extended: true}))
 
 app.get('/', async (req, res, next) => {
     res.send('X to the PRESS')
@@ -13,10 +17,10 @@ app.get('/', async (req, res, next) => {
 app.use('/auth', AuthRoute)
 
 app.use(async (req, res, next) => {
-    // const error = new Error('Not Found.') 
-    // error.status = 404
-    // next(error)
-    next(createEorr.NotFound())//In the function, use quotes and it will show client whatever you write inside.
+    const error = new Error('Not Found.') 
+    error.status = 404
+    next(error)
+    //next(createEorr.NotFound())//In the function, use quotes and it will show client whatever you write inside.
 })
 
 app.use((err, req, res, next) => {
