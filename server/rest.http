@@ -1,19 +1,19 @@
-GET http://localhost:8000
+//GET http://localhost:8000
 
 ////////Login Route////////
-POST http://localhost:8000/auth/login
+//POST http://localhost:8000/auth/login
 
 ///////Register Route//////
 POST http://localhost:8000/auth/register
 Content-Type: application/json
 
 {
-    "email" : "stephsorandom@gmail.com",
-    "password" : "1234"
+    "email" : "hrrdfyk@gmail.com",
+    "password" : "0000000000"
 }
 
 ///////Refresh Token Route//
-POST http://localhost:8000/auth/refresh-token
+//POST http://localhost:8000/auth/refresh-token
 
 //////Logout Route/////////
-DELETE http://localhost:8000/auth/logout
+//DELETE http://localhost:8000/auth/logout
