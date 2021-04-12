@@ -31,7 +31,20 @@ router.post('/register', async (req, res, next) => {
 })
 
 router.post('/login', async (req, res, next) => {
-    res.send('login route')
+    try{
+        const result = await authSchema.validateAsync(req.body)
+        const user = await User.findOne({email: res.email}) //validating if account has been made
+        if(!user) throw createError.NotFound('User not registered.') //Error if not made
+
+        const isMatch = await user.isValidPassword(result.password)
+        if (!isMatch) throw createError.Unauthorized('Username/Password not valid.')
+
+        const accessToken = await signAccessToken(user.id)
+        res.send({accessToken})
+    } catch (error) {
+        if(error.isJoi === true) return next(createError.BadRequest('Invalid Username/Password')) //Error if wrong info
+        next(error)
+    }
 })
 
 router.post('/refresh-token', async (req, res, next) => {

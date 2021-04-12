@@ -6,6 +6,7 @@ module.exports = {
     signAccessToken: (userId) => {
         return new Promise((resolve, reject) => {
             const payload = {
+                iss: 'pickyourpage.com'
             }
             const secret = process.env.ACCESS_TOKEN_SECRET
             const options = {
@@ -15,7 +16,9 @@ module.exports = {
             }
             JWT.sign(payload, secret, options, (err, token) => {
                 if (err) reject(err)
-                resolve(token)
+                console.log(err.message)
+                //resolve(token)
+                reject(createError.InternalServerError())
             })
         })
     }
