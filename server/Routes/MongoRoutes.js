@@ -25,9 +25,9 @@ mongoose
         console.log('Mongoose connection is disconnected.')
     })
 
-    process.on('SIGINT', async () => {
+    process.on('SIGINT', async () => { //fired when CTRL-C on server is used.
         await mongoose.connection.close()
-        process.exit(0)
+        process.exit(0)//exits the connection.
     })
 
     module.exports = {mongoose}
